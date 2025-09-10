@@ -1,19 +1,21 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "dify-integration/vercel-adapter.js",
-      "use": "@vercel/node"
+  "functions": {
+    "api/**/*.js": {
+      "runtime": "@vercel/node@3"
+    },
+    "index.js": {
+      "runtime": "@vercel/node@3"
     }
-  ],
-  "routes": [
+  },
+  "rewrites": [
     {
-      "src": "/health",
-      "dest": "/dify-integration/vercel-adapter.js"
+      "source": "/",
+      "destination": "/index.js"
     },
     {
-      "src": "/api/(.*)",
-      "dest": "/dify-integration/vercel-adapter.js"
+      "source": "/api/(.*)",
+      "destination": "/api/$1.js"
     }
   ],
   "env": {
