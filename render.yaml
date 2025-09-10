@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: product-review-agent-api
+    env: node
+    plan: starter
+    buildCommand: npm install
+    startCommand: node dify-integration/render-adapter.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DIFY_REGION
+        value: china
+      - key: LANGFUSE_ENABLED
+        value: false
+      - key: PORT
+        value: 10000
+    healthCheckPath: /health
