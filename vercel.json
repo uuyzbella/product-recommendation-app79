@@ -1,26 +1,25 @@
 {
   "version": 2,
   "functions": {
-    "api/**/*.js": {
-      "runtime": "@vercel/node@3"
-    },
-    "index.js": {
-      "runtime": "@vercel/node@3"
+    "dify-integration/vercel-adapter.js": {
+      "runtime": "nodejs18.x"
     }
   },
-  "rewrites": [
+  "routes": [
     {
-      "source": "/",
-      "destination": "/index.js"
+      "src": "/api/(.*)",
+      "dest": "/dify-integration/vercel-adapter.js"
     },
     {
-      "source": "/api/(.*)",
-      "destination": "/api/$1.js"
+      "src": "/health",
+      "dest": "/dify-integration/vercel-adapter.js"
+    },
+    {
+      "src": "/",
+      "dest": "/dify-integration/vercel-adapter.js"
     }
   ],
   "env": {
-    "NODE_ENV": "production",
-    "DIFY_REGION": "china",
-    "LANGFUSE_ENABLED": "false"
+    "NODE_ENV": "production"
   }
 }
